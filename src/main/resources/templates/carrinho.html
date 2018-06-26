@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>LojaWeb | Carrinho</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/shop-homepage.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/">LojaWeb</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link ml-2" href="/" style="color: #ffffff">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item ml-2">
+              <a class="nav-link" href="/sobre" style="color: #ffffff">Sobre</a>
+            </li>
+            <li sec:authorize="hasRole('USER')" class="nav-item ml-2 mb-1">
+              <a class="btn btn-success" href="/usuario/carrinho">Carrinho <i class="fa fa-shopping-cart"></i></a>
+            </li>
+            <li sec:authorize="!isAuthenticated()" class="nav-item ml-2 mb-1">
+              <a class="btn btn-secondary" href="/usuario/login">Entrar <i class="fa fa-user"></i></a>
+            </li>
+            <li sec:authorize="!isAuthenticated()" class="nav-item ml-2 mb-1">
+              <a class="btn btn-secondary" href="/usuario/formulario">Cadastre-se <i class="fa fa-user-plus"></i></a>
+            </li>
+            <li sec:authorize="hasRole('ADMIN')" class="nav-item ml-2 mb-1">
+              <a class="btn btn-secondary" href="/produto/cadastrar">Cadastrar Produto <i class="fa fa-plus"></i></a>
+            </li>
+            <li sec:authorize="hasRole('USER')" class="nav-item ml-2 mb-1">
+              <a class="btn btn-secondary" href="/usuario/historico">Histórico <i class="fa fa-list"></i></a>
+            </li>
+            <li sec:authorize="hasRole('ADMIN')" class="nav-item ml-2 mb-1">
+              <a class="btn btn-secondary" href="/produto/produtosCadastrados">Todos os Produtos <i class="fa fa-list"></i></a>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="nav-item ml-2 mb-1">
+              <a class="btn btn-secondary" href="#"><span sec:authentication="name"></span> <i class="fa fa-user"></i></a>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="nav-item ml-2">
+              <a class="btn btn-secondary" href="/usuario/logout">Sair <i class="fa fa-sign-out-alt"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-3">
+
+          <h1 class="my-4">Categorias</h1>
+          <div class="list-group">
+            <a href="#" class="list-group-item">Notebooks</a>
+            <a href="#" class="list-group-item">Mouses</a>
+            <a href="#" class="list-group-item">Capas</a>
+          </div>
+
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+          <div class="card mt-4">
+            <div class="card-header">Carrinho de Compras</div>
+            <div class="card-body">
+              <table class="table table-borderless">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Nome</th>
+				      <th scope="col">Preço</th>
+				      <th scope="col">Imagem</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="produto : ${produtosDoCarrinho}">
+				      <th scope="row" th:text="${produto.id}"></th>
+				      <td th:text="${produto.nome}"></td>
+				      <td th:text="${produto.preco}"></td>
+				      <td><img class="img-fluid" width="80" th:src="@{'/img/' + ${produto.nome} + .jpg}"></td>
+				      <td><a th:href="@{/usuario/removerProduto/{id}(id=${produto.id})}">&times;</a></td>
+				    </tr>
+				  </tbody>
+				</table>
+            </div>
+            <div class="card-footer">
+            	<div class="row">
+            	<div class="col-6">
+            		<h5 th:if="${total}" th:text="'Total:R$ ' + ${total}"></h5>
+            	</div>
+            	<div class="col-6">
+            		<a class="btn btn-success text-white float-right" href="/usuario/finalizarCompra">Finalizar Compra <i class="fa fa-check"></i></a>
+            	</div>
+            	</div>
+            </div>
+          </div>
+          <!-- /.card -->
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <p class="m-0 text-white">Todos os direitos reservados &copy; LojaWeb 2018</p>
+            <p class="m-0 text-white">Telefone: (99) 99999-9999</p>
+            <p class="m-0 text-white">E-mail: lojaweb@mail.com</p>
+            <p class="m-0 text-white">Endereço: Rua da Bandeira, 1002</p>
+            <p class="m-0 text-white">Cidade: Fortaleza, CE</p>
+          </div>
+          <div class="col-6">
+            <img src="/images/formas-pagamento.png" class="img-fluid float-right">
+          </div>
+        </div>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!--  <script src="/vendor/jquery/jquery.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <!-- <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" integrity="sha384-u/bQvRA/1bobcXlcEYpsEdFVK/vJs3+T+nXLsBYJthmdBuavHvAW6UsmqO2Gd/F9" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" 
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" 
+    crossorigin="anonymous">
+  </body>
+
+</html>

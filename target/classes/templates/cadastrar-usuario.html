@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>LojaWeb | Cadastre-se</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+
+    <!-- Custom styles for this template -->
+    <link href="/css/signin.css" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <form class="form-signin" action="/usuario/cadastrar" method="POST">
+      <img class="mb-4" src="/images/icon.png" alt="" width="100" height="92">
+      <h1 class="h3 mb-3 font-weight-normal">Cadastro de Cliente</h1>
+      <label for="nome" class="sr-only">Nome</label>
+      <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome" required autofocus>
+      <label for="cpf" class="sr-only">CPF</label>
+      <input type="text" name="cpf" id="cpf" class="form-control" placeholder="CPF" required>
+      <label for="dataNasc" class="sr-only">Data de Nascimento</label>
+      <input type="date" name="dataNasc" id="dataNasc" class="form-control" placeholder="Data de Nascimento" required>
+      <label for="endereco" class="sr-only">Endereço</label>
+      <input type="text" name="endereco" id="endereco" class="form-control" placeholder="Endereço" required>
+      <label for="login" class="sr-only">Usuário</label>
+      <input type="text" name="login" id="login" class="form-control" placeholder="Usuário" required>
+      <label for="senha" class="sr-only">Senha</label>
+      <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha" required>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Efetuar Cadastro</button>
+      <a class="btn btn-lg btn-secondary btn-block" href="/usuario/login">Entrar</a>
+      <p class="mt-5 mb-3 text-muted">Todos os direitos reservados &copy; LojaWeb 2018</p>
+    </form>
+  </body>
+</html>
